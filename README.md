@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## About
 Firebase is a wonderful way to host single page applications like React. Firebase also makes it very easy to authenticate uses, access a noSQL database and even make API calls a from a serverless state. People who are new to React and / or Firebase may find it hard to implement a working solution quickly. So, I made this repository which already has some of the configuration necessary for quick and easy set up. 
 
