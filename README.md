@@ -1,6 +1,8 @@
 ## About
 Firebase is a wonderful way to host single page applications like React. Firebase also makes it very easy to authenticate uses, access a noSQL database and even make API calls a from a serverless state. People who are new to React and / or Firebase may find it hard to implement a working solution quickly. So, I made this repository which already has some of the configuration necessary for quick and easy set up. 
 
+## if cloneing 
+### `git remote set-url origin new.git.url/here`
 ## Available Scripts
 
 In the project directory, you can run:
