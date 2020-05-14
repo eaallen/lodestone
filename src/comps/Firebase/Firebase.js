@@ -107,6 +107,14 @@ export const AppContext = React.createContext()
       }
         render(){
           console.log('CONTEXT STATE', this.state)
+          if(!this.state.a_perc_3_all){
+            return(
+              <div>
+                loading
+              </div>
+
+            )
+          }
           return(
             <AppContext.Provider value={{...this.state, ...this.actions }}>
               {this.props.children}
