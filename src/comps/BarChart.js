@@ -3,7 +3,7 @@ import {Bar} from 'react-chartjs-2';
 import {withFirebase} from './Firebase'
 function BarChart(props) {
   
-  console.log(props.data)
+  // console.log(props.data)
   const data = {
     labels: props.data[0],
     datasets: [
@@ -23,7 +23,6 @@ function BarChart(props) {
             options={{
             title:{
                 display:true,
-                text:'Average Rainfall per month',
                 fontSize:20
             },
             legend:{
