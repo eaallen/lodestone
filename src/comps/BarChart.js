@@ -8,7 +8,7 @@ function BarChart(props) {
     labels: props.data[0],
     datasets: [
       {
-        label: 'Most Corect',
+        label: props.label || "Count",
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 1,
@@ -17,18 +17,17 @@ function BarChart(props) {
     ]
   }
   return (
-    <div className="App"> 
+    <div className="App" > 
         <Bar
             data={data}
             options={{
             title:{
                 display:true,
+                text:props.title_text,
                 fontSize:20
             },
-            legend:{
-                display:true,
-                position:'right'
-            }
+            
+            responsive: true,
             }}
         />   
     </div>
