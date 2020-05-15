@@ -16,7 +16,7 @@ function App(props) {
     }
     return ([a_labels, a_data])
   }
-  
+  // for precision
   const calc_perc = (dataSet_true,dataSet_all,key_for_lable)=>{
     let a_all = [dataSet_true, dataSet_all]
     let a_data = []
