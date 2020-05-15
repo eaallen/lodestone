@@ -4,7 +4,6 @@ import {withFirebase} from './Firebase'
 function LineChart(props) {
   console.log(props.context.a_time_line)
   let date = []
-  let rater = []
   let count = []
   let a_score = []
   let a_date = []
@@ -36,7 +35,6 @@ function LineChart(props) {
             console.error('error')
     }
   }
-  let re = count
   const data = {
     labels: date,
     datasets: [
@@ -85,7 +83,7 @@ function LineChart(props) {
             options={{
             title:{
                 display:true,
-                text:props.title_text,
+                text: "Correct Rating of Labels per Rater per Day",
                 fontSize:20
             },
             

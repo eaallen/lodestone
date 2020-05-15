@@ -41,7 +41,7 @@ function App(props) {
         <Container >
           <h1>
             Overall Agreement Rate <br/>
-            {props.context.over_all_agreement*100}%
+            {Math.round(((props.context.over_all_agreement * 100) + Number.EPSILON) * 100)/100}%
           </h1>
           <ShowNewData/>
           <p className="text-left p-padding">
@@ -68,9 +68,9 @@ function App(props) {
             <ShowNewData/>
             <br></br>
             <p className="text-left p-padding">
-              Agreement rates are low across the board. However, it does appear that raters E, C, B 
+              Agreement rates are low across the board. However, it does appear that some raters
               have more natural talent then the others.<br></br>
-             Since it is clear that some raters excel at tasks 
+              Since it is clear that some raters excel at tasks 
               with more options and some do better with less options I suggest separating tasks so that each rater can
               play to their strength. 
               
@@ -85,20 +85,18 @@ function App(props) {
               <div>
                 <ShowNewData/>
               </div> 
-              <p className="text-left p-padding">
-                The speed at which raters are to complete their rating is also crucial. It is interesting to note that rater C,
-                who did the best was also able to get the most tasks accomplished. The exact opposite is true of D, who rated the least 
-                correctly and also completed the least amount of tasks. 
-                <br/>
-                I recommend interviewing rater C to get a better understanding of why he/she is doing such a great job. 
-                Use the information from the interview as the basis of the next training session   
-              </p>
             </div>
           </div>
           <div>
             <LineChart/>
           </div>
           <ShowNewData/>
+          <p className="text-left p-padding">
+            The speed at which raters are to complete their rating is also crucial.
+            <br/>
+            I recommend interviewing raters that preform the best to get a better understanding of why he/she is doing such a great job. 
+            Use the information from the interview as the basis of the next training session   
+          </p>
           <div>
             <h1>
               Precision

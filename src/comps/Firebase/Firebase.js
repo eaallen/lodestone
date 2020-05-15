@@ -3,6 +3,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import React from 'react' 
 import axios from 'axios'
+import produce from 'immer'
 export const AppContext = React.createContext()
 
     const config = {
@@ -38,6 +39,7 @@ export const AppContext = React.createContext()
           this.state = {
             test:'this is comming from the firbase context provider',
             loading: null,
+            dataset: ["first","second","third","fourth"]
             // user: null
           }
           console.log('here')
@@ -56,7 +58,11 @@ export const AppContext = React.createContext()
         }
 
         set_loading = async () =>{
-          await this.setState({loading:true})
+          await this.setState(state=> produce(state, draft=>{
+            let item = draft.dataset.shift()
+            draft.dataset.push(item)
+            draft.loading = true
+          }))
           this.componentDidMount()
         }
         updateUserAuth = (userInfo) =>{
@@ -82,10 +88,9 @@ export const AppContext = React.createContext()
         getOneRecord = (_collection, item_wanted) => this.db.collection(_collection).doc(item_wanted)
       
       componentDidMount = async()=>{
-        const dataset = ["first","second","third","fourth"]
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         axios.defaults.headers.post['Authorization'] = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OmVhYWxsZW4iLCJpc3MiOiJhZ2VudDplYWFsbGVuOjo0YzBlYWQ5YS1kODE5LTQzMWMtYjVmOS0zNGEwZDE5MzRkOGQiLCJpYXQiOjE1Nzc3MTc5OTcsInJvbGUiOlsidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6dHJ1ZSwic2FtbCI6e319.XbV9G84LNvqN6RREjPKFlDLQrTtzUu5KVu46xDS7TOtGnMZ94h1PrNaAkQ6zT-79QOM7Ku2GrZdivguQ_o9jsw';
-        axios.defaults.url = "https://api.data.world/v0/sql/eaallen/"+dataset[Math.floor((Math.random() * 4))]
+        axios.defaults.url = "https://api.data.world/v0/sql/eaallen/"+this.state.dataset[0]
         axios.defaults.method= 'post' 
         let rater_most_correct_3 = await axios({data:{query: "select rater ,COUNT(rater_correct_3) from out WHERE rater_correct_3 = true group by rater ORDER BY rater"}})
         let rater_most_correct_5 = await axios({data:{query: "SELECT rater ,COUNT(rater_correct_5) FROM out WHERE rater_correct_5 = true GROUP BY rater ORDER BY rater"}})
