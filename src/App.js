@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {withFirebase} from './comps/Firebase'
 import BarChart from './comps/BarChart';
-import {Row,Col, Container} from 'react-bootstrap'
+import {Row,Col, Container, Spinner} from 'react-bootstrap'
 import LineChart from './comps/LineChart';
+import ShowNewData from './comps/ShowNewData';
 function App(props) {
   const simple_2d_bar = (dataSet)=>{
     let a_data = []
@@ -15,6 +16,7 @@ function App(props) {
     }
     return ([a_labels, a_data])
   }
+  
   const calc_perc = (dataSet_true,dataSet_all,key_for_lable)=>{
     let a_all = [dataSet_true, dataSet_all]
     let a_data = []
@@ -41,11 +43,13 @@ function App(props) {
             Overall Agreement Rate <br/>
             {props.context.over_all_agreement*100}%
           </h1>
+          <ShowNewData/>
           <p className="text-left p-padding">
             Any agreement rate that is below 90% is not acceptable for this project. Analysis of key processes has 
             been done in to find out what is wrong and what must change. The following documentation will show the
             problem areas and give solutions. 
           </p>
+
           <div>
             <h1>
               Raters Answered Correctly
@@ -55,20 +59,13 @@ function App(props) {
             <Row>
               <Col>
                 <BarChart data={simple_2d_bar(props.context.a_rater_most_correct_3)} title_text="When Faced With 3 Options" label="Correct Answers"/>
-                <h6>
-                  The rater with the best score was C.<br/>
-                  The rater with the worst score was D.
-                </h6>
               </Col>
 
               <Col>
                 <BarChart data={simple_2d_bar(props.context.a_rater_most_correct_5)} title_text="When Faced With 5 Options" label="Correct Answers"/>
-                <h6>
-                  The rater with the best score was E.<br/>
-                  The rater with the worst score was D.
-                </h6>     
               </Col>
             </Row>
+            <ShowNewData/>
             <br></br>
             <p className="text-left p-padding">
               Agreement rates are low across the board. However, it does appear that raters E, C, B 
@@ -86,7 +83,7 @@ function App(props) {
               </h1>
               <BarChart data={simple_2d_bar(props.context.a_most_task_complete)} title_text="Amount of Tasks per Rater During October" label="Completed Tasks"/>
               <div>
-                <h6>Rater C was able to complete the most tasks </h6>
+                <ShowNewData/>
               </div> 
               <p className="text-left p-padding">
                 The speed at which raters are to complete their rating is also crucial. It is interesting to note that rater C,
@@ -101,7 +98,7 @@ function App(props) {
           <div>
             <LineChart/>
           </div>
-        
+          <ShowNewData/>
           <div>
             <h1>
               Precision
@@ -109,16 +106,12 @@ function App(props) {
             <Row>
               <Col>
                 <BarChart data={calc_perc(props.context.a_perc_5_true,props.context.a_perc_5_all,"correct_answer_5")} title_text="Precision with 5 labels" label="score out of 1"/>
-                <h6>
-
-                </h6>
               </Col>
-          
-        
               <Col>
                 <BarChart data={calc_perc(props.context.a_perc_3_true,props.context.a_perc_3_all,"correct_answer_3")} title_text="Precision with 3 labels" label="score out of 1"/>
               </Col>
             </Row>
+            <ShowNewData/>
             <p className="text-left p-padding">
               I analyzed the precision for each of the rating labels. Taking the amount of declared positives for each rating label and dividing 
               it by the total amount of declarations for that label, I was able to assess that the we had a low of around 18% and a high of 

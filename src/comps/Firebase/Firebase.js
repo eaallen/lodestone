@@ -21,7 +21,6 @@ export const AppContext = React.createContext()
           super(props)
           this.actions={
             updateUserAuth: this.updateUserAuth,
-            loader: this.loader,
             doCreateUserWithEmailAndPassword:this.doCreateUserWithEmailAndPassword,
             doSignInWithEmailAndPassword:this.doSignInWithEmailAndPassword,
             doSignInWithGoogle:this.doSignInWithGoogle,
@@ -33,11 +32,8 @@ export const AppContext = React.createContext()
             doAddRecord:this.doAddRecord,
             doGetQueryRecord:this.doGetQueryRecord,
             getOneRecord:this.getOneRecord,
-            checkState: this.checkState,
-            user: this.user,
-            doGetAllRecords: this.doGetAllRecords,
-            doGetTaskByCustomerID: this.doGetTaskByCustomerID,
-            
+            componentDidMount: this.componentDidMount,
+            set_loading: this.set_loading,
           }
           this.state = {
             test:'this is comming from the firbase context provider',
@@ -59,7 +55,10 @@ export const AppContext = React.createContext()
           });
         }
 
-        
+        set_loading = async () =>{
+          await this.setState({loading:true})
+          this.componentDidMount()
+        }
         updateUserAuth = (userInfo) =>{
           // this.state.auth_user = userInfo
           // // this.state.auth_user = userInfo          
@@ -81,14 +80,16 @@ export const AppContext = React.createContext()
         doAddRecord = (_collection) => this.db.collection(_collection).doc();
         doGetQueryRecord = (_collection, item_looking_for,filtering_item) => this.db.collection(_collection).where(item_looking_for, '==',filtering_item).get();
         getOneRecord = (_collection, item_wanted) => this.db.collection(_collection).doc(item_wanted)
-      async componentDidMount(){
+      
+      componentDidMount = async()=>{
+        const dataset = ["first","second","third","fourth"]
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         axios.defaults.headers.post['Authorization'] = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OmVhYWxsZW4iLCJpc3MiOiJhZ2VudDplYWFsbGVuOjo0YzBlYWQ5YS1kODE5LTQzMWMtYjVmOS0zNGEwZDE5MzRkOGQiLCJpYXQiOjE1Nzc3MTc5OTcsInJvbGUiOlsidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6dHJ1ZSwic2FtbCI6e319.XbV9G84LNvqN6RREjPKFlDLQrTtzUu5KVu46xDS7TOtGnMZ94h1PrNaAkQ6zT-79QOM7Ku2GrZdivguQ_o9jsw';
-        axios.defaults.url = "https://api.data.world/v0/sql/eaallen/lodestone"
+        axios.defaults.url = "https://api.data.world/v0/sql/eaallen/"+dataset[Math.floor((Math.random() * 4))]
         axios.defaults.method= 'post' 
-        let rater_most_correct_3 = await axios({data:{query: "select rater ,COUNT(rater_correct_3) from out WHERE rater_correct_3 = true group by rater"}})
-        let rater_most_correct_5 = await axios({data:{query: "SELECT rater ,COUNT(rater_correct_5) FROM out WHERE rater_correct_5 = true GROUP BY rater"}})
-        let most_task_complete = await axios({data:{query: "SELECT rater ,COUNT(task_id) FROM out GROUP BY rater"}})
+        let rater_most_correct_3 = await axios({data:{query: "select rater ,COUNT(rater_correct_3) from out WHERE rater_correct_3 = true group by rater ORDER BY rater"}})
+        let rater_most_correct_5 = await axios({data:{query: "SELECT rater ,COUNT(rater_correct_5) FROM out WHERE rater_correct_5 = true GROUP BY rater ORDER BY rater"}})
+        let most_task_complete = await axios({data:{query: "SELECT rater ,COUNT(task_id) FROM out GROUP BY rater ORDER BY rater"}})
         let perc_5_true = await axios({data:{query: "SELECT out.correct_answer_5 ,COUNT(out.rater_correct_5) FROM out WHERE out.rater_correct_5 = true GROUP BY out.correct_answer_5 ORDER BY out.correct_answer_5"}})
         let perc_5_all = await axios({data:{query: "SELECT out.correct_answer_5 ,COUNT(out.rater_correct_5) FROM out GROUP BY out.correct_answer_5 ORDER BY out.correct_answer_5"}})
         let perc_3_true = await axios({data:{query: "SELECT out.correct_answer_3 ,COUNT(out.rater_correct_3) FROM out WHERE out.rater_correct_3 = true GROUP BY out.correct_answer_3 ORDER BY out.correct_answer_3"}})
@@ -105,7 +106,7 @@ export const AppContext = React.createContext()
           a_perc_3_all: perc_3_all.data,
           over_all_agreement: over_all_agreement_query.data[0].total_agreement,
           a_time_line: time_line.data,
-
+          loading: false,
         })
         // console.log('response from data.world',perc_3_all.data)
       }

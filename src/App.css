@@ -42,3 +42,11 @@
   padding-left: 4rem;
   padding-right: 4rem;
 }
+.link{
+  color: goldenrod;
+}
+.link:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
