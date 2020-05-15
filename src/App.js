@@ -46,7 +46,7 @@ function App(props) {
           <ShowNewData/>
           <p className="text-left p-padding">
             Any agreement rate that is below 90% is not acceptable for this project. Analysis of key processes has 
-            been done in to find out what is wrong and what must change. The following documentation will show the
+            been done in order to find out what is wrong and what must change. The following documentation will show the
             problem areas and give solutions. 
           </p>
 
@@ -112,8 +112,8 @@ function App(props) {
             <ShowNewData/>
             <p className="text-left p-padding">
               I analyzed the precision for each of the rating labels. Taking the amount of declared positives for each rating label and dividing 
-              it by the total amount of declarations for that label, I was able to assess that the we had a low of around 18% and a high of 
-              almost 34%.  The results show that raters are randomly selecting rating labels.  I suggest training the raters on how to 
+              it by the total amount of declarations for that label, I was able to assess that the we had a low score (less the 35%).  
+              The results show that raters are randomly selecting rating labels.  I suggest training the raters on how to 
               appropriately select a rating label. 
             </p>
           </div>
@@ -128,7 +128,7 @@ function App(props) {
                 </p>
                 <h5>How do I improve precision of a label over time?</h5>
                 <p className="text-left p-padding">
-                  There a multiple way to improve precision. The first and quickest is to make sure that the right algorithms are in place,
+                  There a multiple ways to improve precision. The first and quickest way is to make sure that the right algorithms are in place,
                   the correct levels are chosen, and the data is cleaned. Then, a long term solution is to continue to add new data to the
                   model and to continue its training. The more data your model has the more accurate it can be.
                 </p>
@@ -145,8 +145,22 @@ function App(props) {
                 </p>
 
               </Col>
-              <Col>
-              
+              <Col className="text-left">
+                <h5>How Raters do from month to month?</h5>
+                <p className="text-left p-padding">
+                  There may be other factors of rater performance that are not visible in the month of October. 
+                  Therefore, expanding the range of data over multiple months and even years could show important information. 
+                </p>
+                <h5>Are Raters more effective at home?</h5>
+                <p className="text-left p-padding">
+                  With the current working environment turned upside down because of the global pandemic it is important to 
+                  know if raters can do better working at home. If this is the case then the company can save money. 
+                </p>
+                <h5>How are raters doing emotionally?</h5>
+                <p className="text-left p-padding">
+                  Healthy employees are effective employees. The emotional health of raters is very important because they must make 
+                  good judgments quickly. A healthy mind leads to quicker and better decisions. 
+                </p>
               </Col>
             </Row>
           </div>
