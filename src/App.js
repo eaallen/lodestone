@@ -4,6 +4,7 @@ import './App.css';
 import {withFirebase} from './comps/Firebase'
 import BarChart from './comps/BarChart';
 import {Row,Col, Container} from 'react-bootstrap'
+import LineChart from './comps/LineChart';
 function App(props) {
   const simple_2d_bar = (dataSet)=>{
     let a_data = []
@@ -97,7 +98,9 @@ function App(props) {
               </p>
             </div>
           </div>
-        
+          <div>
+            <LineChart/>
+          </div>
         
           <div>
             <h1>

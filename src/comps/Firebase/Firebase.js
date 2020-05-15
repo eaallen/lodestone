@@ -94,7 +94,7 @@ export const AppContext = React.createContext()
         let perc_3_true = await axios({data:{query: "SELECT out.correct_answer_3 ,COUNT(out.rater_correct_3) FROM out WHERE out.rater_correct_3 = true GROUP BY out.correct_answer_3 ORDER BY out.correct_answer_3"}})
         let perc_3_all = await axios({data:{query: "SELECT out.correct_answer_3 ,COUNT(out.rater_correct_3) FROM out GROUP BY out.correct_answer_3 ORDER BY out.correct_answer_3"}})
         let over_all_agreement_query = await axios({data:{query: "SELECT DISTINCT((SELECT COUNT(o.rater_correct_3) FROM out o WHERE o.rater_correct_3 = TRUE)+(SELECT COUNT(o.rater_correct_5) FROM out o WHERE o.rater_correct_3 = TRUE))/((SELECT COUNT(o.rater_correct_5)FROM out o)+(SELECT COUNT(o.rater_correct_3) FROM out o)) AS total_agreement FROM out"}})
-        let time_line = await axios({data:{query:"SELECT out.date,out.rater,COUNT(out.rater_correct_3) + COUNT(out.rater_correct_5) as count FROM out where out.rater_correct_3 = true or out.correct_answer_5=true GROUP BY out.date, out.rater ORDER BY out.rater"}})
+        let time_line = await axios({data:{query:"SELECT out.date,out.rater,COUNT(out.rater_correct_3) + COUNT(out.rater_correct_5) as count FROM out where out.rater_correct_3 = true or out.correct_answer_5=true GROUP BY out.date, out.rater ORDER BY out.date"}})
         this.setState({...this.state,
           a_rater_most_correct_3:rater_most_correct_3.data,
           a_rater_most_correct_5:rater_most_correct_5.data,
